@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .h900{
+            height: 1800px;
+        }
+    </style>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="h900" id="h" onclick="clickme();"></div>
+<script>
+    /*console.log($(document).height());
+    console.log($(window).height());
+
+    window.onscroll=function () {
+        console.log($('.h900').scrollTop());
+    }*/
+
+    function clickme() {
+        var h = document.getElementById("h");
+        setTimeout(
+            "h.style.backgroundColor='#cccccc'",1500
+        )
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        input[type='checkbox']+label::before {
+            content:'\a0';/*不换行空格*/ display: inline-block; vertical-align: 0.2em; width:0.8em; height:0.8em; margin-right: .2em; border-radius:.2em; background: silver;/*复选框的背景色*/ text-indent:0.15em; line-height: 0.65; }
+        input[type='checkbox'] { /*隐藏掉原先实际的 checkbox 框，之所以没用 display:none; 这种简单直接的方式，是因为这种方法会把它从键盘 tab 键切换焦点的队列中完全删除*/ position: absolute; clip:rect(0,0,0,0); }
+        input[type='checkbox']:checked+label::before { content:'\2713'; /*对号的 Unicode字符*/ background: yellowgreen;/*对号的颜色*/ }
+    </style>
+</head>
+<body>
+<input type="checkbox" id="awesome">
+<label for="awesome">Awesome!</label>
+
+<input type="" />
+</body>
+</html>
