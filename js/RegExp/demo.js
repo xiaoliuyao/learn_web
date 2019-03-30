@@ -155,8 +155,9 @@ console.log(str.replace(reg1, '').replace(reg2, ''));
 
 
 var b = '%E7%9B%AE%E5%89%8D%E6%82%A8%E5%9F%B9%E7%8F%8D%E5%AB%82%E5%AD%21';
-var c=/%AF/;
-console.log(c.test(b));
+// var c=/%AF/;
+// console.log(c.test(b));
+console.log(decodeURIComponent(b));
 
 
 

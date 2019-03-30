@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数的扩展</title>
+</head>
+<body>
+
+<script>
+
+//允许为参数设置默认值
+function add(x = 2, y = 3){
+	return x + y;
+}
+console.log(add());
+console.log(add(4));
+
+//rest 参数（形式为...变量名）
+function f4(...values){
+	console.log(values);
+}
+f4(1,2,4);	//[1, 2, 4]
+f4({x:1,y:'tom'});	//[{…}]
+
+
+// 箭头函数
+var f = n => n;
+// 等同于
+// function f(n){ return n; }
+console.log(f(3));
+
+//多个参数或没有参数
+var f1 = () => 5;
+var f2 = (m,n) => ({id: m, number: n});	//直接返回一个对象，必须在对象外面加上括号. 因为大括号被解释为代码块
+console.log(f1());
+console.log(f2(3,2));
+
+//多句代码
+var f3 = m => {
+	console.log(m);
+	return m + m;
+}
+f3(7);
+//箭头函数根本没有自己的this，导致内部的this就是外层代码块的this。
+
+
+//尾调用：某个函数的最后一步是调用另一个函数
+//如果所有函数都是尾调用，那么完全可以做到每次执行时，调用帧只有一项，这将大大节省内存。
+
+//函数调用自身，称为递归。如果尾调用自身，就称为尾递归。
+//递归非常耗费内存，因为需要同时保存成千上百个调用帧，很容易发生“栈溢出”错误（stack overflow）。但对于尾递归来说，由于只存在一个调用帧，所以永远不会发生“栈溢出”错误。
+
+</script>
+
+</body>
+</html>

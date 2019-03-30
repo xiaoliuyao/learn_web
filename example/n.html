@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax</title>
+	<style type="text/css">
+	.box {
+		width: 200px;
+		background-color: #ff0000;
+		color: #fff;
+		opacity: 1;
+		animation: hideme 1s 3s forwards;
+	}
+	@keyframes hideme {
+		from {
+			/*opacity: 1;*/
+			display: block;
+		}
+		to {
+			opacity: 0;
+			display: none;
+		}
+	}
+	</style>
+	<!-- <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script> -->
+</head>
+<body>
+<div class="box">
+	我们普通的 Web 程序开发基本都是同步的，意为执行一段程序才能执行下一段，类似电话中的通话，一个电话接完才能接听下个电话；
+	而异步可以同时执行多条任务，感觉有多条线路，类似于短信，不会因为看一条短信而停止接受另一条短信。
+	Ajax 也可以使用同步模式执行，但同步的模式属于阻塞模式，这样会导致多条线路执行时又必须一条一条执行，会让 Web 页面出现假死状态，所以，一般 Ajax 大部分采用异步模式。
+</div>
+<div class="box2"></div>
+
+<script>
+
+
+
+/*
+var xmlhttp;
+if (window.XMLHttpRequest){
+	// code for IE7+, Firefox, Chrome, Opera, Safari
+  	xmlhttp=new XMLHttpRequest();
+} else{
+	// code for IE6, IE5
+	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+}
+xmlhttp.onreadystatechange = function(){
+	console.log(xmlhttp.readyState);
+	if(xmlhttp.readyState === 4){
+		console.log(xmlhttp.response);
+	}
+}
+xmlhttp.open('POST','http://localhost:3003/users');
+xmlhttp.responseType = 'json';
+xmlhttp.timeout = 1000;
+xmlhttp.ontimeout = function(){
+	console.log('超时了');
+}
+xmlhttp.send();
+
+*/
+
+
+
+</script>
+
+</body>
+</html>

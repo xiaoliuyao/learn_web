@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM节点操作</title>
+    <script src="https://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+    <script src="dom.js" type="text/javascript"></script>
+    <style type="text/css">
+        body{
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<table border="1" cellpadding="2" cellspacing="0">
+    <caption>内部插入节点方法</caption>
+    <tr>
+        <th>方法名</th><th>描述</th>
+    </tr>
+    <tr>
+        <td>append(content)</td><td>向指定元素内部后面插入节点 content</td>
+    </tr>
+    <tr>
+        <td>append(function (index, html) {})</td><td>使用匿名函数向指定元素内部后面插入节点</td>
+    </tr>
+    <tr>
+        <td>appendTo(content)</td><td>将指定元素移入到指定元素 content 内部后面</td>
+    </tr>
+    <tr>
+        <td>prepend(content)</td><td>向指定元素 content 内部的前面插入节点</td>
+    </tr>
+    <tr>
+        <td>prepend(function (index, html) {})</td><td>使用匿名函数向指定元素内部的前面插入节点</td>
+    </tr>
+    <tr>
+        <td>prependTo(content)</td><td>将指定元素移入到指定元素 content 内部前面</td>
+    </tr>
+</table>
+
+
+<div>节点</div>
+<div><i>节点</i></div>
+<strong>DOM</strong>
+<div>456</div>
+</body>
+</html>

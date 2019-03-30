@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基础DOM和CSS操作</title>
+    <script src="https://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+    <script type="text/javascript" src="demo.js"></script>
+    <style type="text/css">
+        .red {
+            color: #ff0000;
+        }
+        .bggrey {
+            background-color: #cccccc;
+        }
+        #span{
+            position: absolute;
+            top: 2px;
+            left: 6px;
+        }
+    </style>
+</head>
+<body>
+<!--<div id="box" style="height: 30px; padding: 5px; border: 5px solid rebeccapurple;margin: 10px;"><i>123</i></div>
+<input name="name" type="text" />-->
+
+<div style="position: relative; height: 30px;">
+    <span id="span">123121</span>
+</div>
+
+<table border="1" cellpadding="2" cellspacing="0">
+    <tr><td>方法名</td><td>描述</td></tr>
+    <tr><td>offset()</td><td>相对于视口的偏移位置</td></tr>
+    <tr><td>position()</td><td>相对于父元素的偏移位置</td></tr>
+    <tr><td>scrollTop()</td><td>获取垂直滚动条的值</td></tr>
+    <tr><td>scrollTop(value) </td><td>设置垂直滚动条的值</td></tr>
+    <tr><td>scrollLeft() </td><td>获取水平滚动条的值</td></tr>
+    <tr><td>scrollLeft(value) </td><td>设置水平滚动条的值</td></tr>
+</table>
+</body>
+</html>

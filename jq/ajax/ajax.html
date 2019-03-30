@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax</title>
+    <script src="../jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="ajax.js" type="text/javascript"></script>
+</head>
+<body>
+<input type="button" class="load-btn" value="load()加载数据" />
+<div class="box">
+	我们普通的 Web 程序开发基本都是同步的，意为执行一段程序才能执行下一段，类似电话中的通话，一个电话接完才能接听下个电话；
+	而异步可以同时执行多条任务，感觉有多条线路，类似于短信，不会因为看一条短信而停止接受另一条短信。
+	Ajax 也可以使用同步模式执行，但同步的模式属于阻塞模式，这样会导致多条线路执行时又必须一条一条执行，会让 Web 页面出现假死状态，所以，一般 Ajax 大部分采用异步模式。
+</div>
+<div class="box2">
+	$.post()方法的使用和$.get()基本上一致，具体区别如下：
+	1.GET 请求是通过 URL 提交的，而 POST 请求则是 HTTP 消息实体提交的；
+	2.GET 提交有大小限制（2KB），而 POST 方式不受限制；
+	3.GET 方式会被缓存下来，可能有安全性问题，而 POST 没有这个问题；
+</div>
+<form id="form1">
+	<input type="text" name="user" />
+	<input type="text" name="age" />
+	<input type="button" value="提交" />
+</form>
+
+</body>
+</html>

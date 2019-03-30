@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>下拉刷新</title>
+	<style type="text/css">
+	* {
+		margin: 0; padding: 0;
+	}
+	.box {
+		width: 500px;
+	}
+	ul {
+		list-style-type: none;
+	}
+	.box li {
+		line-height: 50px;
+	}
+
+	.wrap {
+		width: 260px;
+		height: 300px;
+		border: 10px solid #666;
+		padding: 20px;
+		margin: 30px;
+		background-color: #ccc;
+		overflow-x: scroll;
+		overflow-y: scroll;
+	}
+	.wrap-mid {
+		/*width: 100%;*/
+		/*height: 100%;*/
+		background-color: #f5f5f5;
+	}
+	</style>
+	<script src="http://wechatfe.github.io/vconsole/lib/vconsole.min.js?v=3.2.0"></script>
+	<script>
+	var vConsole = new VConsole();
+</script>
+</head>
+<body>
+<!-- <div class="box" onclick="changeScroll()">
+	<ol id="ol">
+		<li>我的斗罗大陆。</li>
+		<li>我的斗罗大陆。</li>
+		<li>我的斗罗大陆3。</li>
+		<li>我的斗罗大陆。</li>
+		<li>我的斗罗大陆。</li>
+		<li>我的斗罗大陆6。</li>
+		<li>我的斗罗大陆。</li>
+		<li>我的斗罗大陆。</li>
+		<li>我的斗罗大陆9。</li>
+		<li>我的斗罗大陆。</li>
+		<li>我的斗罗大陆。</li>
+		<li>我的斗罗大陆12。</li>
+		<li>我的斗罗大陆。</li>
+		<li>我的斗罗大陆。</li>
+		<li>我的斗罗大陆15。</li>
+		<li>我的斗罗大陆。</li>
+		<li>我的斗罗大陆。</li>
+		<li>我的斗罗大陆18。</li>
+	</ol>
+</div> -->
+<div class="wrap" id="wrap">
+	<div class="wrap-mid">
+		<p>又一个div</p><p>又一个div</p><p>又一个div</p>
+		<p>又一个div</p><p>又一个div</p><p>又一个div</p>
+		<p>又一个div</p><p>又一个div</p><p>又一个div</p>
+		<p>浏览器窗口</p><p>浏览器窗口</p><p>浏览器窗口</p>
+		<p>浏览器窗口</p><p>浏览器窗口</p><p>浏览器窗口</p>
+		<p>又一个div</p><p>又一个div</p><p>又一个div</p>
+		<p>又一个div</p><p>又一个div</p><p>又一个div</p>
+		<p>又一个div</p><p>又一个div</p><p>又一个div</p>
+		<p>浏览器窗口</p><p>浏览器窗口</p><p>浏览器窗口</p>
+		<p>浏览器窗口</p><p>浏览器窗口</p><p>浏览器窗口</p>
+	</div>
+</div>
+
+
+<script>
+
+window.onload = function(){
+
+	console.log('浏览器窗口的视口（viewport）宽高度，包含滚动条');
+	console.log(window.innerWidth +':'+window.innerHeight);
+	console.log('整个浏览器窗口的宽高度，包括工具栏、地址栏、调试面板、边框等');
+	console.log(window.outerWidth +':'+window.outerHeight);
+
+	console.log('屏幕的宽度和高度');
+	console.log(window.screen.width +':'+ window.screen.height);
+	console.log('浏览器窗口在屏幕上可占用的垂直空间，即最大高度；');
+	console.log(window.screen.availWidth +':'+ window.screen.availHeight);
+
+	// console.log('浏览器可用空间左边距离屏幕（系统桌面）左边界的距离');
+	// console.log(window.screen.availLeft +':'+ window.screen.availTop);
+
+
+	console.log('浏览器左边界到系统桌面左边界的距离;浏览器顶部距离系统桌面顶部的距离');
+	console.log(window.screenX +':'+ window.screenY);
+	console.log(window.screenLeft +':'+ window.screenTop);
+
+
+
+	console.log('文档在水平/垂直方向滚动的像素值');
+	console.log(window.pageXOffset +':'+ window.pageYOffset);
+	console.log(window.scrollX +':'+ window.scrollY);
+
+
+	console.log('-----------');
+	var box = document.getElementById('wrap');
+	console.log('该元素内部宽度和高度');
+	console.log(box.clientWidth +':'+ box.clientHeight);	
+	console.log('该元素左边框和顶部边框的距离');
+	console.log(box.clientLeft +':'+ box.clientTop);
+
+	console.log('该元素布局的宽度和高度');
+	console.log(box.offsetWidth +':'+ box.offsetHeight);	
+	console.log('元素左上角相对于父元素的左边界偏移的像素值');
+	console.log(box.offsetLeft +':'+ box.offsetTop);
+
+	console.log('内容高度的度量，包括由于溢出导致的视图中不可见内容');
+	console.log(box.scrollWidth +':'+ box.scrollHeight);	
+	console.log('元素的内容垂直滚动的像素数');
+	box.scrollTop = 41;
+	console.log(box.scrollLeft +':'+ box.scrollTop);
+
+
+	function throttle(fn,times = 300){
+	    let bool = true
+	    return function(){
+	        if(!bool){
+	            return false
+	        }
+	        bool = false
+	        setTimeout(()=>{
+	            bool = true
+	            fn.apply(this,arguments)
+	        },times)
+	    }
+	}
+	function debounce(fn,times){
+	    let timeout = null
+	    return function(){
+	        clearTimeout(timeout)
+	        timeout = setTimeout(()=>{
+	            fn.apply(this,arguments)
+	        },times)
+	    }
+	}
+
+	function con(){
+		console.log('lalal');
+	}
+
+
+	var flag = true;	//是否允许执行
+	box.addEventListener('scroll', throttle(con, 500),false);
+
+};
+
+
+
+
+</script>
+
+</body>
+</html>

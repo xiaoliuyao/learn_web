@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择器</title>
+    <!--<script type="text/javascript" src="../jquery-3.3.1.min.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>-->
+    <script src="https://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+    <script type="text/javascript" src="demo.js"></script>
+    <style type="text/css">
+        #list li {
+            color: rebeccapurple;
+        }
+    </style>
+</head>
+<body>
+    <!--<div id="box">选择器</div>
+    <div>选择器2</div>
+    <div class="box2">选择器2</div>
+    <div class="box2">选择器2</div>
+
+    <ul id="list">
+        <li>jdkfjkdjfkd</li>
+        <li>jdkfjkdjfkd</li>
+        <li>jdkfjkdjfkd</li>
+    </ul>-->
+
+<!--<div id="wrap">
+    <p>pp</p>
+    <p>pp</p>
+    <p>pp</p>
+    <div class="wrap-div">
+        <p>pp</p>
+        <p>pp</p>
+    </div>
+    <strong>strong</strong>
+    <p>ppp</p>
+    <p>ppp</p>
+    <a title="123">123</a>
+    <a>123</a>
+    <a title="326">123</a>
+</div>-->
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+        <td></td>
+        <td>window.onload</td>
+        <td>$(document).ready()</td>
+    </tr>
+    <tr>
+        <td>执行时机</td>
+        <td>必须等待网页全部加载完毕（包括图片等），然后再执行包裹代码</td>
+        <td>只需要等待网页中的DOM结构加载完毕，就能执行包裹的代码</td>
+    </tr>
+    <tr>
+        <td>执行次数</td>
+        <td>只能执行一次，如果第二次，那么第一次的执行会被覆盖</td>
+        <td>可以执行多次，第N次都不会被上一次覆盖</td>
+    </tr>
+    <tr>
+        <td>简写方案</td>
+        <td>无</td>
+        <td>$(function () {});</td>
+    </tr>
+</table>
+
+    <ul>
+        <li>列表1</li>
+        <li>列表2</li>
+        <li>列表3</li>
+        <li class="li4">列表4</li>
+        <li>列表5</li>
+    </ul>
+    <ul>
+        <li>列表1</li>
+        <li>列表2</li>
+        <li>列表3</li>
+        <li>列表4</li>
+        <li>列表5</li>
+        <li></li>
+    </ul>
+    <ul>
+        <li>列表1</li>
+    </ul>
+    <ul style="display: none;">
+        <li>列表1</li>
+        <li>列表2</li>
+    </ul>
+</body>
+</html>
