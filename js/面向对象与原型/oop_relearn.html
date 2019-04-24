@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>面向对象与原型复习（插件必备基础知识）</title>
+</head>
+<body>
+
+<script type="text/javascript">
+/* 
+ *字面量创建对象
+ *缺点：创建多个对象的话，代码非常冗余
+*/
+var c = new Object();
+c.id = 123;
+c.subject = 'English';
+c.print = function () { 
+    console.log(this.id + ' is teaching ' + this.subject);
+}
+c.print();
+
+console.log('—————————————————————————————————');
+
+
+/* “工厂模式”
+ *优点：相较字面量的方式简化了大量重复工作
+ *缺点：存在识别问题，即假如又有一个createSchool()函数，s对象是由这个创建的，那么后面会存在无法识别这几个对象到底是有哪个创建的，因为使用 typeof 得出的类型都是相同的
+ *特点：1.函数内需要new一个对象；2.函数内需要return这个对象。
+*/
+function createTeacher(id, subject){
+    var obj = new Object();
+    obj.id = id;
+    obj.subject = subject;
+    obj.print = function(){
+        console.log(this.id + ' is teaching ' + this.subject);
+    }
+    return obj;
+}
+var t1 = createTeacher(234, 'Math');
+t1.print();
+var t2 = createTeacher(345, 'Music');
+t2.print();
+console.log('类型：' + typeof t1);    //object
+console.log("判断t1实例是否属于某种类型（object）:" + (t1 instanceof Object));  //true
+console.log(t1.run == t2.run);  //true
+console.log(t1.run === t2.run);  //true
+
+console.log('—————————————————————————————————');
+
+
+/*构造函数（方法）
+ *优点：1.更简单直接；2.解决了识别问题
+ *缺点：同一个构造函数创建的多个实例，这些实例的方法都重复了（打印出的引用地址是不相等的）
+ *特点：1.函数体内不需要new对象；
+       2.函数体内不需要return；
+       3.函数体内使用this；
+       4.构造函数名第一个字母一般大写；
+       5.创建实例时需要使用 new
+*/
+// function Worker(name, age) {
+var Worker = function(name, age){
+    this.name = name;
+    this.age = age;
+    this.run = function(){
+        console.log(this.name + ' is ' + this.age);
+    }
+}
+function Boss(name) {
+    this.name = name;
+    this.run = function(){
+        console.log(this.name);
+    }
+}
+var w1 = new Worker('Mike', 18);
+w1.run();
+var w2 = new Worker('Jason', 20);
+w2.run();
+console.log(typeof w1); //object
+console.log("判断w1实例是否属于某种类型（Boss）:" + (w1 instanceof Boss));  //false
+console.log(w1.run == w2.run);  //false
+console.log(w1.run === w2.run);  //false
+
+console.log('—————————————————————————————————');
+
+
+
+/*构造函数 + 全局函数
+ *优点：解决了方法重复的问题
+ *缺点：方法变为全局函数，this指向2种可能
+*/
+console.log('--尝试解决构造函数导致的引用地址不一致的缺点（法1）：--');
+function Writer(name, age){
+    this.name = name;
+    this.age = age;
+    this.run = run;
+}
+//方法提取出来，成为全局函数。但它当作普通函数的时候，里面的this代表的是window对象
+function run(){     
+    console.log(this.name + ' is ' + this.age);
+}
+var wr1 = new Writer('Bajin', 66);
+var wr2 = new Writer('Bajin', 66);
+console.log(wr1.run == wr2.run);  //true
+console.log('—————————————————————————————————');
+
+
+
+/*原型模式
+ *优点：属性、方法共享
+ *缺点：共享。对于引用类型的共享数据，其中一个实例修改了值，共享数据也改变了
+ */
+console.log('--尝试解决构造函数导致的引用地址不一致的缺点（法2）：--');
+function Police(){} //空函数体
+//每个函数都有一个 prototype(原型)属性，这个属性是一个对象，可以包含共享的属性和方法
+//这种方式比下面的更为稳妥，因为Police.prototype = {...}这种方式导致prototype指向的对象重新定位了，这个时候constructor指向了Object
+Police.prototype.id = 1;
+Police.prototype.name = 'Mike';
+Police.prototype.family = ['mom','dad'];
+Police.prototype.run = function () {
+    console.log(this.id + ":" + this.name);
+};
+// Police.prototype = {
+//     //将构造函数置为Police，这里一定要将constructor重新设置回Police，不然会指向Object的构造函数
+//     constructor:Police,
+//     id : 1,
+//     name : 'Mike',
+//     family: ['mom','dad'],
+//     run : function () {
+//         console.log(this.id + ":" + this.name);
+//     }
+// }
+var p1 = new Police();
+var p2 = new Police();
+p1.run();
+p2.id = 2;
+p2.run();
+p2.family.push('brother');
+console.log(p1.family); //修改p2的family属性，导致p1的family属性也改变
+console.log(p1.run == p2.run);  //true
+console.log(typeof Police.prototype);   //object
+console.log(p1.__proto__);
+console.log('—————————————————————————————————');
+
+
+/*构造函数 + 原型模式
+ *优点：解决了共享带来的缺点；并可以传参
+ *缺点：稍显怪异
+ */
+console.log('--尝试解决构造函数导致的引用地址不一致的缺点（法2优化）：--');
+function Nurse(id,name){
+    this.id = id;
+    this.name = name;
+}
+Nurse.prototype.run = function () {
+    console.log(this.id + ":" + this.name);
+};
+var n1 = new Nurse(21,'Amy');
+var n2 = new Nurse(31,'Monica');
+n1.run();
+n2.run();
+console.log(n1.run == n2.run);  //true
+console.log('—————————————————————————————————');
+
+
+/*动态原型模式
+ *优点：全部封装到了一起,又实现了原型方法共享，并且属性都保持独立
+*/
+function Mom(name) {
+    this.name = name;
+    if(typeof this.run !== 'function') {
+        Mom.prototype.run = function () {    //这段代码只会初次调用构造函数的时候才会执行。
+            console.log(this.name);
+        };
+    }
+}
+var m1 = new Mom('jj');
+m1.run();
+var m2 = new Mom('pp');
+m2.run();
+console.log(m1.run == m2.run);  //true
+
+
+//其他还有：
+//寄生构造函数（和工厂模式很像，只是创建实例时使用了new），稳妥构造函数（禁止使用 this 和 new）
+
+</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>插件基础</title>
+    <style type="text/css" rel="stylesheet">
+    .box {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 10px;
+        border: 1px dashed #ccc;
+    }
+    </style>
+</head>
+<body>
+    <div class="box-wrap">
+        <div class="box" id="box1"></div>
+        <form id="form1">
+            <input name="color" type="text" value="#" />
+            <input id="s1" type="submit" value="改变颜色" />
+        </form>
+    </div>
+    <div class="box-wrap">
+        <div class="box" id="box2"></div>
+        <form id="form2">
+            <input name="color" type="text" value="#" />
+            <input id="s2" type="submit" value="改变颜色" />
+        </form>
+    </div>
+
+<script>
+//定义改变颜色的插件
+;(function(w,d){
+    //构造函数
+    var CColor = function(b,f){
+        this.b = d.getElementById(b);
+        this.f = d.getElementById(f);
+
+        //抽取出来init()
+        /* var _self = this;
+        this.f.onsubmit = function(e){
+            console.log(_self.b);
+            _self.b.style.backgroundColor = _self.f.elements['color'].value;
+            e.preventDefault();
+        } */
+        this._bind_submit();
+    };
+    //绑定表单提交事件
+    CColor.prototype._bind_submit = function(){
+        var _self = this;
+        this.f.onsubmit = function(e){
+            var c = _self.f.elements['color'].value;
+            if(_self._check_color(c)){
+                console.log('hhh');
+                _self.b.style.backgroundColor = c;
+                console.log('mmm');
+            } else {
+                alert('颜色值不正确！');
+            }
+            
+            e.preventDefault();
+        }
+    };
+    //判断是否是颜色值的正则表达式
+    CColor.prototype.regColor = /^#[0-9a-fA-F]{6}$/;
+    //判断提交的颜色值是否正确
+    CColor.prototype._check_color = function(c){
+        if(this.regColor.test(c)) {
+            return true;
+        }
+        return false;
+    };
+    //把这个对象赋给window对象下的CColor，否则会找不到这个私有对象
+    w.CColor = CColor;
+})(window,document);
+//插件结束
+
+
+
+//实例化对象
+var f1 = new CColor('box1','form1');
+var f2 = new CColor('box2','form2');
+console.log(f1.f.onsubmit);
+console.log(f1._bind_submit == f2._bind_submit);
+
+</script>
+</body>
+</html>
