@@ -22,10 +22,13 @@ c.print();
 console.log('—————————————————————————————————');
 
 
+
+console.log('工厂模式：');
 /* “工厂模式”
  *优点：相较字面量的方式简化了大量重复工作
- *缺点：存在识别问题，即假如又有一个createSchool()函数，s对象是由这个创建的，那么后面会存在无法识别这几个对象到底是有哪个创建的，因为使用 typeof 得出的类型都是相同的
- *特点：1.函数内需要new一个对象；2.函数内需要return这个对象。
+ *缺点：存在识别问题，即假如又有一个createSchool()函数，s对象是由这个创建的，那么后面会存在无法识别这几个对象到底是由哪个创建的，因为使用 typeof 得出的类型都是相同的；而且不同实例里的方法地址是不同的（存在重复，而这是不必要的）
+ *特点：1.函数内需要new一个对象；
+ *     2.函数内需要return这个对象。
 */
 function createTeacher(id, subject){
     var obj = new Object();
@@ -42,12 +45,13 @@ var t2 = createTeacher(345, 'Music');
 t2.print();
 console.log('类型：' + typeof t1);    //object
 console.log("判断t1实例是否属于某种类型（object）:" + (t1 instanceof Object));  //true
-console.log(t1.run == t2.run);  //true
-console.log(t1.run === t2.run);  //true
+console.log(t1.print == t2.print);  //false
+console.log(t1.print === t2.print);  //false
 
 console.log('—————————————————————————————————');
 
 
+console.log('构造函数（方法）：');
 /*构造函数（方法）
  *优点：1.更简单直接；2.解决了识别问题
  *缺点：同一个构造函数创建的多个实例，这些实例的方法都重复了（打印出的引用地址是不相等的）
@@ -84,9 +88,10 @@ console.log('——————————————————————�
 
 
 
+console.log('构造函数 + 全局函数：');
 /*构造函数 + 全局函数
  *优点：解决了方法重复的问题
- *缺点：方法变为全局函数，this指向2种可能
+ *缺点：方法变为全局函数，暴露出来的变量急剧增加，很不好控制；全局方法里的this指向2种可能
 */
 console.log('--尝试解决构造函数导致的引用地址不一致的缺点（法1）：--');
 function Writer(name, age){
@@ -105,6 +110,7 @@ console.log('——————————————————————�
 
 
 
+console.log('原型模式：');
 /*原型模式
  *优点：属性、方法共享
  *缺点：共享。对于引用类型的共享数据，其中一个实例修改了值，共享数据也改变了
@@ -142,26 +148,33 @@ console.log(p1.__proto__);
 console.log('—————————————————————————————————');
 
 
+
+console.log('构造函数 + 原型模式：');
 /*构造函数 + 原型模式
  *优点：解决了共享带来的缺点；并可以传参
  *缺点：稍显怪异
  */
 console.log('--尝试解决构造函数导致的引用地址不一致的缺点（法2优化）：--');
-function Nurse(id,name){
+function Nurse(id,name,family){
     this.id = id;
     this.name = name;
+    this.family = family;
 }
 Nurse.prototype.run = function () {
     console.log(this.id + ":" + this.name);
 };
-var n1 = new Nurse(21,'Amy');
-var n2 = new Nurse(31,'Monica');
+var n1 = new Nurse(21,'Amy',['mom']);
+var n2 = new Nurse(31,'Monica',['dad']);
 n1.run();
 n2.run();
 console.log(n1.run == n2.run);  //true
+n1.family.push('brother');
+console.log(n2.family); //["dad"]. n1属性family的改变并不影响n2的family
 console.log('—————————————————————————————————');
 
 
+
+console.log('动态原型模式：');
 /*动态原型模式
  *优点：全部封装到了一起,又实现了原型方法共享，并且属性都保持独立
 */
